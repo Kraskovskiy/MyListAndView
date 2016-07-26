@@ -1,6 +1,7 @@
 package com.kab.mylistandview;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.database.Cursor;
@@ -20,10 +21,13 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
     private ListView mListViewChat;
     private DB mDB;
     private CustomListAdapter mCustomCursorListAdapter;
+    private Fragment mFragFullView;
+    private FragmentTransaction mFTrans;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, null);
+        mFragFullView = new FullViewFragment();
         dbConnection();
         createListViewAsync(view);
         return view;
@@ -57,9 +61,18 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                createFragmentFullCard();
             }
         });
     }
+
+    public void createFragmentFullCard() {
+        mFTrans = getFragmentManager().beginTransaction();
+        mFTrans.replace(R.id.frameLayout1, mFragFullView, "MY_FRAGMENT_FULL");
+        mFTrans.addToBackStack(null);
+        mFTrans.commit();
+    }
+
 
 
     @Override
