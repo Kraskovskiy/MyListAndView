@@ -18,12 +18,12 @@ import android.widget.TextView;
  * Created by Kraskovskiy on 26.07.2016.
  */
 public class FullViewFragment extends Fragment implements MyBitmapCallback {
-    ImageView mImageBackground;
+    private ImageView mImageBackground;
     private DB mDB;
     private static final int MAX_LINE_COUNT = 5;
-    Images mImage;
-    ImageView mImageLike;
-    TextView mText_Full_Description;
+    private Images mImage;
+    private ImageView mImageLike;
+    private TextView mTextFullDescription;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_full_view, null);
@@ -36,17 +36,17 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         btnExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                collapseExpandTextView(mText_Full_Description);
+                collapseExpandTextView(mTextFullDescription);
             }
         });
 
-        TextView text_Title = (TextView) view.findViewById(R.id.text_Title);
-        TextView text_Name_Author = (TextView) view.findViewById(R.id.text_Name_Author);
-        TextView text_Date = (TextView) view.findViewById(R.id.text_Date);
-        TextView text_Number_Likes = (TextView) view.findViewById(R.id.text_Number_Likes);
-        mText_Full_Description = (TextView) view.findViewById(R.id.text_Full_Description);
-        mText_Full_Description.setMaxLines(MAX_LINE_COUNT);
-        mText_Full_Description.setEllipsize(TextUtils.TruncateAt.END);
+        TextView textTitle = (TextView) view.findViewById(R.id.text_Title);
+        TextView textNameAuthor = (TextView) view.findViewById(R.id.text_Name_Author);
+        TextView textDate = (TextView) view.findViewById(R.id.text_Date);
+        TextView textNumberLikes = (TextView) view.findViewById(R.id.text_Number_Likes);
+        mTextFullDescription = (TextView) view.findViewById(R.id.text_Full_Description);
+        mTextFullDescription.setMaxLines(MAX_LINE_COUNT);
+        mTextFullDescription.setEllipsize(TextUtils.TruncateAt.END);
 
         mImageBackground = (ImageView) view.findViewById(R.id.imageBackground);
         mImageLike = (ImageView) view.findViewById(R.id.imageLike);
@@ -67,11 +67,11 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         });
 
         if (mImage !=null) {
-            text_Title.setText(String.format(getResources().getString(R.string.title), mImage.getName()));
-            text_Name_Author.setText(String.format(getResources().getString(R.string.name_author), mImage.getAuthor()));
-            text_Date.setText(String.format(getResources().getString(R.string.date), mImage.getDate()));
-            text_Number_Likes.setText(String.format(getResources().getString(R.string.number_of_likes), mImage.getNumberLike()));
-            mText_Full_Description.setText(String.format(getResources().getString(R.string.full_description), mImage.getDescription()));
+            textTitle.setText(String.format(getResources().getString(R.string.title), mImage.getName()));
+            textNameAuthor.setText(String.format(getResources().getString(R.string.name_author), mImage.getAuthor()));
+            textDate.setText(String.format(getResources().getString(R.string.date), mImage.getDate()));
+            textNumberLikes.setText(String.format(getResources().getString(R.string.number_of_likes), mImage.getNumberLike()));
+            mTextFullDescription.setText(String.format(getResources().getString(R.string.full_description), mImage.getDescription()));
         }
 
         setLikeImage();
@@ -79,12 +79,10 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         GetImage getImage = new GetImage();
         getImage.getImages(mImage.getUrl(),this);
 
-
-
         return view;
     }
 
-    public void collapseExpandTextView(TextView tv) {
+    private void collapseExpandTextView(TextView tv) {
 
         if (tv.getMaxLines() == MAX_LINE_COUNT) {
             // collapsed - expand it
@@ -100,7 +98,7 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         animation.setDuration(200).start();
     }
 
-    public void setLikeImage(){
+    private void setLikeImage(){
         if (mImage.getMyLike() == 0) {
             mImageLike.setImageResource(R.drawable.like_grey);
         } else {
@@ -114,7 +112,6 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!" );
         if (getActivity()!=null) {
             Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
-
             myHandler.post(new Runnable() {
 
                 @Override

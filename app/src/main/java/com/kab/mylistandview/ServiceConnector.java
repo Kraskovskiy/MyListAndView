@@ -11,21 +11,12 @@ public class ServiceConnector {
 
     private static String API_BASE_URL = "http://testokpo.net23.net";
 
-   // private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build();
-
 
     public static MyJSONService createService() {
         MyJSONService service = retrofit.create(MyJSONService.class);
         return  service;
     }
-
-
-    /*public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass);
-    }*/
-
 }

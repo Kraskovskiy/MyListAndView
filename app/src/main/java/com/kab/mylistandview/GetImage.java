@@ -19,6 +19,7 @@ public class GetImage {
 
    private Bitmap mBitmap;
    private MyBitmapCallback myBitmapCallback;
+
     public void getImages(String url, MyBitmapCallback callback) {
         myBitmapCallback = callback;
         OkHttpClient client = new OkHttpClient();
@@ -30,7 +31,6 @@ public class GetImage {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("GetImagesonFailure", e.toString());
-
             }
 
             @Override
@@ -40,9 +40,9 @@ public class GetImage {
                     myBitmapCallback.callbackBitmapIsLoad(mBitmap);
 
                 } catch (OutOfMemoryError e) {
-
+                    Log.e("GetImagesonResponse", e.toString());
                 }
-                Log.e("GetImagesonResponse",response.message());
+                Log.i("GetImagesonResponse", response.message());
             }
         });
     }
