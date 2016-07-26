@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -25,6 +26,7 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
     private ImageView mImageLike;
     private TextView mTextFullDescription;
     private Bitmap mBitmap;
+    private ProgressBar mProgressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_full_view, null);
@@ -32,6 +34,8 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         mImage = ListFragment.sImage;
         mDB = new DB(getActivity().getApplicationContext());
         mDB.open();
+
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         Button btnExpand = (Button) view.findViewById(R.id.btnExpand);
         btnExpand.setOnClickListener(new View.OnClickListener() {
@@ -75,13 +79,13 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
             mTextFullDescription.setText(String.format(getResources().getString(R.string.full_description), mImage.getDescription()));
         }
 
-        setLikeImage();
-
         if (mBitmap == null ) {
             GetImage getImage = new GetImage();
             getImage.getImages(mImage.getUrl(), this);
         } else {
             mImageBackground.setImageBitmap(mBitmap);
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mImageLike.setVisibility(View.VISIBLE);
         }
         setRetainInstance(true);
         return view;
@@ -125,12 +129,16 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!");
         mBitmap = bitmap;
         if (getActivity() != null) {
+
             Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
             myHandler.post(new Runnable() {
 
                 @Override
                 public void run() {
                     mImageBackground.setImageBitmap(bitmap);
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    mImageLike.setVisibility(View.VISIBLE);
+                    setLikeImage();
                 }
             });
         }

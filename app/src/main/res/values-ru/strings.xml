@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyListAndView</string>
+    <string name="action_settings">Настройки</string>
+    <string name="date">Дата: %s</string>
+    <string name="expand">Развернуть: %s</string>
+    <string name="full_description">Полное описание: %s</string>
+    <string name="name_author">Имя Автора: %s</string>
+    <string name="number_of_likes">Количество лайков: %s</string>
+    <string name="title">Наименование: %s</string>
+</resources>
