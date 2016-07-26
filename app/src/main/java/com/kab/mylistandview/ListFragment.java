@@ -23,6 +23,7 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
     private CustomListAdapter mCustomCursorListAdapter;
     private Fragment mFragFullView;
     private FragmentTransaction mFTrans;
+    public static Images sImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
+                sImage = mDB.readItem(position);
                 createFragmentFullCard();
             }
         });

@@ -7,6 +7,16 @@ import com.google.gson.annotations.SerializedName;
  * Created by Kraskovskiy on 26.07.2016.
  */
 public class Images {
+    public Images(Integer id, String name, String url, Integer numberLike, String author, String date, String description, Integer myLike) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.numberLike = numberLike;
+        this.author = author;
+        this.date = date;
+        this.description = description;
+        this.myLike = myLike;
+    }
 
     @SerializedName("_id")
     @Expose
@@ -20,6 +30,9 @@ public class Images {
     @SerializedName("number_like")
     @Expose
     private Integer numberLike;
+    @SerializedName("my_like")
+    @Expose
+    private Integer myLike;
     @SerializedName("author")
     @Expose
     private String author;
@@ -29,6 +42,15 @@ public class Images {
     @SerializedName("description")
     @Expose
     private String description;
+
+
+    public Integer getMyLike() {
+        return myLike;
+    }
+
+    public void setMyLike(Integer myLike) {
+        this.myLike = myLike;
+    }
 
     /**
      *

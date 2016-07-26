@@ -13,9 +13,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    Fragment mFragList;
-    Fragment mFragFullView;
-    FragmentTransaction mFTrans;
+    private Fragment mFragList;
+    private Fragment mFragFullView;
+    private FragmentTransaction mFTrans;
+
+
+
 
 
     @Override

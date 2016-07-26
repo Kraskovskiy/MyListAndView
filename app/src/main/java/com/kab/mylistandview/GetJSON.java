@@ -25,7 +25,7 @@ public class GetJSON {
 
     private MyJSONService myJSONService;
     private Context mContext;
-    public static List<Images> sListImages = new ArrayList<>();
+   // public static List<Images> sListImages = new ArrayList<>();
 
     public GetJSON(Context context) {
         myJSONService = ServiceConnector.createService();
@@ -40,8 +40,8 @@ public class GetJSON {
             public void onResponse(Call<List<Images>> call, Response<List<Images>> response) {
                 Log.e("getJSONList","getJSONList = " + response.headers()+"\n" + response.message());
                 Log.e("getJSONList","JSONList = " + response.body().get(0).getDescription());
-                sListImages.clear();
-                sListImages.addAll(response.body());
+              //  sListImages.clear();
+               // sListImages.addAll(response.body());
                 saveResponseToDB(response.body());
               }
 

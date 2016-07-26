@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Created by Kraskovskiy on 26.07.2016.
@@ -30,6 +31,39 @@ public class DB {
         return mDB.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
     }
 
+    public Images readItem(int id) {
+
+       // mDB.query()
+        String countQuery = "SELECT  * FROM " + DBHelper.TABLE_NAME +" WHERE _id="+id;
+       // Cursor cursor = mDB.rawQuery(countQuery, null);
+        Cursor cursor = mDB.query(DBHelper.TABLE_NAME, null, DBHelper.COLUMN_ID+" = "+id, null, null, null, null);
+        if (cursor.moveToFirst()) {
+
+            Log.e("TAG", "readItem: " + cursor.getCount());
+
+            int itemMylike_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
+            int itemDescription_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_DESCRIPTION);
+            int itemID_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_ID);
+            int itemAuthor_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_AUTHOR);
+            int itemDate_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_DATE);
+            int itemName_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_NAME);
+            int itemNumberLikes = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_NUMBER_OF_LIKES);
+            int itemUrl_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_URL);
+
+            // Log.e("________", "readItem: "+"  " +itemMylike_index+"  " +"  " +itemDescription_index+"  "+"  " +itemID_index+"  "+"  " +itemAuthor_index+"  "+"  " +itemDate_index+"  "
+            //+"  " +itemName_index+"  "+"  " +itemNumberLikes+"  "+"  " +itemUrl_index);
+
+             Log.e("TAG", "readItem: "+cursor.getInt(itemID_index)+"  "+cursor.getString(itemName_index));
+
+       return new Images(cursor.getInt(itemID_index),cursor.getString(itemName_index),
+                cursor.getString(itemUrl_index),cursor.getInt(itemNumberLikes),
+                cursor.getString(itemAuthor_index),cursor.getString(itemDate_index),
+                cursor.getString(itemDescription_index),cursor.getInt(itemMylike_index));
+        } else {
+            return null;
+        }
+    }
+
     public void append(Images images) {
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.COLUMN_AUTHOR, images.getAuthor());
@@ -47,6 +81,15 @@ public class DB {
     public void delete(long id) {
         mDB.delete(DBHelper.TABLE_NAME, DBHelper.COLUMN_ID + " = " + id, null);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
+    }
+
+
+    public int getCount() {
+        String countQuery = "SELECT  * FROM " + DBHelper.TABLE_NAME;
+        Cursor cursor = mDB.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
     }
 
     public void dbTrunc()
