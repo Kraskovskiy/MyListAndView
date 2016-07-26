@@ -32,15 +32,8 @@ public class DB {
     }
 
     public Images readItem(int id) {
-
-       // mDB.query()
-        String countQuery = "SELECT  * FROM " + DBHelper.TABLE_NAME +" WHERE _id="+id;
-       // Cursor cursor = mDB.rawQuery(countQuery, null);
         Cursor cursor = mDB.query(DBHelper.TABLE_NAME, null, DBHelper.COLUMN_ID+" = "+id, null, null, null, null);
         if (cursor.moveToFirst()) {
-
-            Log.e("TAG", "readItem: " + cursor.getCount());
-
             int itemMylike_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
             int itemDescription_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_DESCRIPTION);
             int itemID_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_ID);
@@ -49,11 +42,6 @@ public class DB {
             int itemName_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_NAME);
             int itemNumberLikes = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_NUMBER_OF_LIKES);
             int itemUrl_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_URL);
-
-            // Log.e("________", "readItem: "+"  " +itemMylike_index+"  " +"  " +itemDescription_index+"  "+"  " +itemID_index+"  "+"  " +itemAuthor_index+"  "+"  " +itemDate_index+"  "
-            //+"  " +itemName_index+"  "+"  " +itemNumberLikes+"  "+"  " +itemUrl_index);
-
-             Log.e("TAG", "readItem: "+cursor.getInt(itemID_index)+"  "+cursor.getString(itemName_index));
 
        return new Images(cursor.getInt(itemID_index),cursor.getString(itemName_index),
                 cursor.getString(itemUrl_index),cursor.getInt(itemNumberLikes),
@@ -90,8 +78,6 @@ public class DB {
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
 
-
-
     public int getCount() {
         String countQuery = "SELECT  * FROM " + DBHelper.TABLE_NAME;
         Cursor cursor = mDB.rawQuery(countQuery, null);
@@ -107,9 +93,4 @@ public class DB {
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
 
-    public void clearAll()
-    {
-        mDB.delete(DBHelper.TABLE_NAME, null, null);
-        mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
-    }
 }

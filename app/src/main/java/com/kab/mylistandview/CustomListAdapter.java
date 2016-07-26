@@ -39,8 +39,6 @@ public class CustomListAdapter extends SimpleCursorAdapter {
         super.bindView(view, context, cursor);
 
         ImageView imageItemlikes = (ImageView) view.findViewById(R.id.image_Item_Likes);
-
-
         int imageItemlikes_index=cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
 
         if (cursor.getString(imageItemlikes_index).equals("0")) {

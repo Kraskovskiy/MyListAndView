@@ -23,10 +23,6 @@ public class DBHelper  extends SQLiteOpenHelper {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_MYLIKE = "myLike";
 
-
-
-
-
     public static final Uri URI_TABLE_NAME = Uri.parse("sqlite://com.kab.mylistandview/table/" + TABLE_NAME);
 
     public static final String DB_CREATE_STRING = "create table "+ TABLE_NAME+ " ("

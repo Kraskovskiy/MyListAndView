@@ -46,7 +46,9 @@
             android:textSize="17sp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
 
         <ImageView
             android:layout_width="1dp"
@@ -65,7 +67,9 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +92,9 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
 
         <ImageView
             android:layout_width="1dp"
@@ -107,7 +113,9 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
     </LinearLayout>
 
     <ImageView
@@ -126,15 +134,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/button"
-        android:maxLines="5"
-        android:minLines="5" />
+        android:layout_above="@+id/btnExpand" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/expand"
-        android:id="@+id/button"
+        android:id="@+id/btnExpand"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
