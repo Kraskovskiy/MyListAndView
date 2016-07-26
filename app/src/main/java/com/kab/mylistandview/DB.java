@@ -39,6 +39,7 @@ public class DB {
         cv.put(DBHelper.COLUMN_DATE, images.getDate());
         cv.put(DBHelper.COLUMN_URL, images.getUrl());
         cv.put(DBHelper.COLUMN_ID, images.getId());
+        cv.put(DBHelper.COLUMN_MYLIKE, "0");
         mDB.insert(DBHelper.TABLE_NAME, null, cv);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }

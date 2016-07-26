@@ -10,10 +10,10 @@ public class Images {
 
     @SerializedName("_id")
     @Expose
-    private String id;
+    private Integer id;
     @SerializedName("name")
     @Expose
-    private Integer name;
+    private String name;
     @SerializedName("url")
     @Expose
     private String url;
@@ -35,7 +35,7 @@ public class Images {
      * @return
      * The id
      */
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -44,7 +44,7 @@ public class Images {
      * @param id
      * The _id
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -53,7 +53,7 @@ public class Images {
      * @return
      * The name
      */
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
@@ -62,7 +62,7 @@ public class Images {
      * @param name
      * The name
      */
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -159,8 +159,8 @@ public class Images {
     @Override
     public String toString() {
         return "Images{" +
-                "id='" + id + '\'' +
-                ", name=" + name +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", numberLike=" + numberLike +
                 ", author='" + author + '\'' +

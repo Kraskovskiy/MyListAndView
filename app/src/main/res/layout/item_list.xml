@@ -19,7 +19,8 @@
             android:layout_alignParentBottom="false"
             android:layout_alignBottom="@+id/image_Item_Likes"
             android:layout_alignTop="@+id/image_Item_Likes"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimaryDark" />
 
         <ImageView
             android:layout_width="35dp"

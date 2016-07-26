@@ -16,7 +16,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "dataTable";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_URL = "myLike";
+    public static final String COLUMN_URL = "url";
     public static final String COLUMN_NUMBER_OF_LIKES = "nLikes";
     public static final String COLUMN_AUTHOR = "author";
     public static final String COLUMN_DATE = "date";

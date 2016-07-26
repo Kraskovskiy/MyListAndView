@@ -1,5 +1,7 @@
 package com.kab.mylistandview;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,12 +13,22 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    Fragment mFragList;
+    Fragment mFragFullView;
+    FragmentTransaction mFTrans;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mFragList = new ListFragment();
+
+        createFragmentList();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -26,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 getJSON.getJSONList();
             }
         });
+    }
+
+    public void createFragmentList() {
+        mFTrans = getFragmentManager().beginTransaction();
+        mFTrans.replace(R.id.frameLayout1, mFragList, "MY_FRAGMENT_LIST");
+        mFTrans.addToBackStack(null);
+        mFTrans.commit();
     }
 
     @Override

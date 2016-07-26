@@ -38,6 +38,17 @@ public class CustomListAdapter extends SimpleCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         super.bindView(view, context, cursor);
 
+        ImageView imageItemlikes = (ImageView) view.findViewById(R.id.image_Item_Likes);
+
+
+        int imageItemlikes_index=cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
+
+        if (cursor.getString(imageItemlikes_index).equals("0")) {
+            imageItemlikes.setImageResource(R.drawable.like_grey);
+        } else {
+            imageItemlikes.setImageResource(R.drawable.like_orange);
+        }
+
     }
 }
 
