@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:id="@+id/text_Title"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Name Author"
+            android:text="@string/name_author"
             android:id="@+id/text_Name_Author"
             android:textSize="17sp"
             android:layout_alignParentTop="true"
@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Date"
+            android:text="@string/date"
             android:id="@+id/text_Date"
             android:textSize="17sp"
             android:layout_below="@+id/text_Title"
@@ -87,7 +87,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Number of likes"
+            android:text="@string/number_of_likes"
             android:id="@+id/text_Number_Likes"
             android:textSize="17sp"
             android:layout_below="@+id/text_Name_Author"
@@ -101,7 +101,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Full description"
+        android:text="@string/full_description"
         android:id="@+id/text_Full_Description"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -114,7 +114,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/expand"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

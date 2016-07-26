@@ -31,11 +31,11 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         ImageView imageLike = (ImageView) view.findViewById(R.id.imageLike);
 
         if (image!=null) {
-            text_Title.setText(image.getName());
-            text_Name_Author.setText(image.getAuthor());
-            text_Date.setText(image.getDate());
-            text_Number_Likes.setText(String.valueOf(image.getNumberLike()));
-            text_Full_Description.setText(image.getDescription());
+            text_Title.setText(String.format(getResources().getString(R.string.title),image.getName()));
+            text_Name_Author.setText(String.format(getResources().getString(R.string.name_author),image.getAuthor()));
+            text_Date.setText(String.format(getResources().getString(R.string.date),image.getDate()));
+            text_Number_Likes.setText(String.format(getResources().getString(R.string.number_of_likes),image.getNumberLike()));
+            text_Full_Description.setText(String.format(getResources().getString(R.string.full_description),image.getDescription()));
         }
 
         if (image.getMyLike().equals("0")) {
