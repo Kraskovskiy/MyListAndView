@@ -3,7 +3,9 @@ package com.kab.mylistandview;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,13 +70,25 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
     }
 
     public void createFragmentFullCard() {
-        mFTrans = getFragmentManager().beginTransaction();
-        mFTrans.replace(R.id.frameLayout1, mFragFullView, "MY_FRAGMENT_FULL");
-        mFTrans.addToBackStack(null);
-        mFTrans.commit();
+        if (!Utils.isTablet(getActivity().getApplicationContext())) {
+            mFTrans = getFragmentManager().beginTransaction();
+            mFTrans.replace(R.id.frameLayout1, mFragFullView, "MY_FRAGMENT_FULL");
+            mFTrans.addToBackStack(null);
+            mFTrans.commit();
+        } else {
+            if (Utils.getLandscapeOrientation(getActivity().getApplicationContext())) {
+                mFTrans = getFragmentManager().beginTransaction();
+                mFTrans.replace(R.id.frameLayout2, mFragFullView, "MY_FRAGMENT_FULL");
+                mFTrans.addToBackStack(null);
+                mFTrans.commit();
+            } else {
+                mFTrans = getFragmentManager().beginTransaction();
+                mFTrans.replace(R.id.frameLayout1, mFragFullView, "MY_FRAGMENT_FULL");
+                mFTrans.addToBackStack(null);
+                mFTrans.commit();
+            }
+        }
     }
-
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle bndl) {

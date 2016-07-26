@@ -2,6 +2,8 @@ package com.kab.mylistandview;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,19 +12,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment mFragList;
     private Fragment mFragFullView;
     private FragmentTransaction mFTrans;
-
+    private FrameLayout frameLayout2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        frameLayout2 = (FrameLayout) findViewById(R.id.frameLayout2);
+        landscapeMode();
         mFragList = new ListFragment();
 
         if (savedInstanceState == null) {
@@ -46,5 +50,32 @@ public class MainActivity extends AppCompatActivity {
         mFTrans.addToBackStack(null);
         mFTrans.commit();
     }
+
+    public int fragmentAlive() {
+        Fragment myFragment1 = getFragmentManager().findFragmentByTag("MY_FRAGMENT_LIST");
+        Fragment myFragment2 = getFragmentManager().findFragmentByTag("MY_FRAGMENT_FULL");
+
+        if (myFragment1 != null && myFragment1.isVisible()) {
+            return 1;
+        }
+        if (myFragment1 != null && myFragment1.isVisible()) {
+            return 2;
+        }
+
+        if ((myFragment1 != null && myFragment1.isVisible()) && (myFragment2 != null && myFragment2.isVisible())) {
+            return 3;
+        }
+        return 0;
+    }
+
+    public void landscapeMode() {
+        if (!Utils.isTablet(getApplicationContext())||!Utils.getLandscapeOrientation(getApplicationContext())) {
+            frameLayout2.setVisibility(View.GONE);
+        }
+    }
+
+
+
+
 
 }
