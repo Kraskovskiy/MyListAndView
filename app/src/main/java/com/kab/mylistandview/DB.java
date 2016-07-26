@@ -78,10 +78,18 @@ public class DB {
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
 
+    public int update(int values, int whereClause) {
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.COLUMN_MYLIKE, values);
+        mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
+        return mDB.update(DBHelper.TABLE_NAME, cv, DBHelper.COLUMN_ID+" = "+whereClause, null);
+    }
+
     public void delete(long id) {
         mDB.delete(DBHelper.TABLE_NAME, DBHelper.COLUMN_ID + " = " + id, null);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
+
 
 
     public int getCount() {

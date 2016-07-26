@@ -48,6 +48,12 @@
             android:layout_weight="1"
             android:gravity="center" />
 
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:src="@color/colorPrimaryDark" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -69,7 +75,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout2"
-        android:layout_above="@+id/text_Full_Description">
+        android:layout_above="@+id/imageView3">
 
         <TextView
             android:layout_width="0dp"
@@ -84,6 +90,12 @@
             android:layout_weight="1"
             android:gravity="center" />
 
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView2"
+            android:src="@color/colorPrimaryDark" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,6 +109,13 @@
             android:layout_weight="1"
             android:gravity="center" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/imageView3"
+        android:src="@color/colorPrimaryDark"
+        android:layout_above="@+id/text_Full_Description" />
 
     <TextView
         android:layout_width="wrap_content"

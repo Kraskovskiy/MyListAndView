@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         mFragList = new ListFragment();
 
-        createFragmentList();
+        if (savedInstanceState == null) {
+            createFragmentList();
+        }
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

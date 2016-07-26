@@ -16,11 +16,16 @@ import android.widget.TextView;
  */
 public class FullViewFragment extends Fragment implements MyBitmapCallback {
     ImageView mImageBackground;
+    private DB mDB;
+    Images mImage;
+    ImageView mImageLike;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_full_view, null);
 
-        Images image = ListFragment.sImage;
+        mImage = ListFragment.sImage;
+        mDB = new DB(getActivity().getApplicationContext());
+        mDB.open();
 
         TextView text_Title = (TextView) view.findViewById(R.id.text_Title);
         TextView text_Name_Author = (TextView) view.findViewById(R.id.text_Name_Author);
@@ -28,42 +33,64 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         TextView text_Number_Likes = (TextView) view.findViewById(R.id.text_Number_Likes);
         TextView text_Full_Description = (TextView) view.findViewById(R.id.text_Full_Description);
         mImageBackground = (ImageView) view.findViewById(R.id.imageBackground);
-        ImageView imageLike = (ImageView) view.findViewById(R.id.imageLike);
+        mImageLike = (ImageView) view.findViewById(R.id.imageLike);
+        mImageLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mImage.getMyLike()==0){
+                    mImage.setMyLike(1);
+                    mDB.update(mImage.getMyLike(),mImage.getId());
+                    setLikeImage();
+                } else {
+                    mImage.setMyLike(0);
+                    mDB.update(mImage.getMyLike(),mImage.getId());
+                    setLikeImage();
+                }
 
-        if (image!=null) {
-            text_Title.setText(String.format(getResources().getString(R.string.title),image.getName()));
-            text_Name_Author.setText(String.format(getResources().getString(R.string.name_author),image.getAuthor()));
-            text_Date.setText(String.format(getResources().getString(R.string.date),image.getDate()));
-            text_Number_Likes.setText(String.format(getResources().getString(R.string.number_of_likes),image.getNumberLike()));
-            text_Full_Description.setText(String.format(getResources().getString(R.string.full_description),image.getDescription()));
+            }
+        });
+
+        if (mImage !=null) {
+            text_Title.setText(String.format(getResources().getString(R.string.title), mImage.getName()));
+            text_Name_Author.setText(String.format(getResources().getString(R.string.name_author), mImage.getAuthor()));
+            text_Date.setText(String.format(getResources().getString(R.string.date), mImage.getDate()));
+            text_Number_Likes.setText(String.format(getResources().getString(R.string.number_of_likes), mImage.getNumberLike()));
+            text_Full_Description.setText(String.format(getResources().getString(R.string.full_description), mImage.getDescription()));
         }
 
-        if (image.getMyLike().equals("0")) {
-            imageLike.setImageResource(R.drawable.like_grey);
-        } else {
-            imageLike.setImageResource(R.drawable.like_orange);
-        }
+        setLikeImage();
 
         GetImage getImage = new GetImage();
-        getImage.getImages(image.getUrl(),this);
+        getImage.getImages(mImage.getUrl(),this);
 
 
 
         return view;
     }
 
+    public void setLikeImage(){
+        if (mImage.getMyLike() == 0) {
+            mImageLike.setImageResource(R.drawable.like_grey);
+        } else {
+            mImageLike.setImageResource(R.drawable.like_orange);
+        }
+    }
+
+
     @Override
     public void callbackBitmapIsLoad(final Bitmap bitmap) {
         Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!" );
-        Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
+        if (getActivity()!=null) {
+            Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
 
-        myHandler.post(new Runnable() {
+            myHandler.post(new Runnable() {
 
-            @Override
-            public void run() {
-                mImageBackground.setImageBitmap(bitmap);
-            }
-        });
+                @Override
+                public void run() {
+                    mImageBackground.setImageBitmap(bitmap);
+                }
+            });
+        }
 
     }
 }
