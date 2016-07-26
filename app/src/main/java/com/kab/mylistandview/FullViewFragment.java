@@ -24,6 +24,7 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
     private Images mImage;
     private ImageView mImageLike;
     private TextView mTextFullDescription;
+    private Bitmap mBitmap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_full_view, null);
@@ -76,11 +77,16 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
 
         setLikeImage();
 
-        GetImage getImage = new GetImage();
-        getImage.getImages(mImage.getUrl(),this);
-
+        if (mBitmap == null ) {
+            GetImage getImage = new GetImage();
+            getImage.getImages(mImage.getUrl(), this);
+        } else {
+            mImageBackground.setImageBitmap(mBitmap);
+        }
+        setRetainInstance(true);
         return view;
     }
+
 
     private void collapseExpandTextView(TextView tv) {
 
@@ -106,11 +112,19 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        mDB.close();
+        super.onDestroyView();
+    }
+
+
 
     @Override
     public void callbackBitmapIsLoad(final Bitmap bitmap) {
-        Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!" );
-        if (getActivity()!=null) {
+        Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!");
+        mBitmap = bitmap;
+        if (getActivity() != null) {
             Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
             myHandler.post(new Runnable() {
 
