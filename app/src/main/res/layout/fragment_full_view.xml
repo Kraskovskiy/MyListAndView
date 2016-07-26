@@ -15,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imageBackground"
-            android:layout_gravity="top|left|bottom|right"
-            android:background="@color/accent_material_dark" />
+            android:layout_gravity="top|left|bottom|right" />
 
         <ImageView
             android:layout_width="70dp"

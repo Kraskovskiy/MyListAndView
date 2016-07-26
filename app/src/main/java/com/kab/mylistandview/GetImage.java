@@ -1,5 +1,6 @@
 package com.kab.mylistandview;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
@@ -16,7 +17,10 @@ import okhttp3.Response;
  */
 public class GetImage {
 
-    public void getImages(String url) {
+   private Bitmap mBitmap;
+   private MyBitmapCallback myBitmapCallback;
+    public void getImages(String url, MyBitmapCallback callback) {
+        myBitmapCallback = callback;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -32,7 +36,8 @@ public class GetImage {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-
+                    mBitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                    myBitmapCallback.callbackBitmapIsLoad(mBitmap);
 
                 } catch (OutOfMemoryError e) {
 
