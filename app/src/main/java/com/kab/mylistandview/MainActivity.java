@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 FullViewFragment fragment = (FullViewFragment) getFragmentManager().findFragmentByTag("MY_FRAGMENT_FULL");
                 fragment.getImagesFromUrl();
             }
+            if (fragmentAlive() == 3 && !Utils.getLandscapeOrientation(getApplicationContext())) {
+                GetJSON getJSON = new GetJSON(getApplicationContext());
+                getJSON.getJSONList();
+            }
         }
     }
 
