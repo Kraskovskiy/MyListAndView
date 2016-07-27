@@ -3,9 +3,7 @@ package com.kab.mylistandview;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.Loader;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -65,7 +63,7 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 sImage = mDB.readItem(position);
-                FullViewFragment.mBitmap = null;
+                FullViewFragment.sBitmap = null;
                 createFragmentFullCard();
                // Log.e("TAG", "onItemClick: ");
             }

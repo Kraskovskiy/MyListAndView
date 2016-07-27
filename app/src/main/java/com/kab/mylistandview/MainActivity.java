@@ -2,16 +2,11 @@ package com.kab.mylistandview;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               GetJSON getJSON = new GetJSON(getApplicationContext());
-                getJSON.getJSONList();
+                reloadFragment();
             }
         });
     }
@@ -51,12 +45,15 @@ public class MainActivity extends AppCompatActivity {
         mFTrans.commit();
     }
 
-    public void reloadFragment(){
-        if (fragmentAlive()==1) {
+    public void reloadFragment() {
+        if (fragmentAlive() == 1) {
             GetJSON getJSON = new GetJSON(getApplicationContext());
             getJSON.getJSONList();
         } else {
-
+            if (FullViewFragment.sBitmap == null) {
+                FullViewFragment fragment = (FullViewFragment) getFragmentManager().findFragmentByTag("MY_FRAGMENT_FULL");
+                fragment.getImagesFromUrl();
+            }
         }
     }
 
