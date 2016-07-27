@@ -16,17 +16,17 @@ import android.widget.TextView;
  * Created by Kraskovskiy on 26.07.2016.
  */
 public class CustomListAdapter extends SimpleCursorAdapter {
-    private Context mContext;
+   // private Context mContext;
     private int mLayout;
-    private Cursor mCursor;
+   // private Cursor mCursor;
     private final LayoutInflater mInflater;
 
     public CustomListAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         mLayout =layout;
-        mContext = context;
+      //  mContext = context;
         mInflater =LayoutInflater.from(context);
-        mCursor =c;
+       // mCursor =c;
     }
 
     @Override

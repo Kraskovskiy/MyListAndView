@@ -17,7 +17,7 @@ import okhttp3.Response;
  */
 public class GetImage {
 
-   private Bitmap mBitmap;
+   private static Bitmap sBitmap;
    private MyBitmapCallback myBitmapCallback;
 
     public void getImages(String url, MyBitmapCallback callback) {
@@ -36,8 +36,8 @@ public class GetImage {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    mBitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                    myBitmapCallback.callbackBitmapIsLoad(mBitmap);
+                    sBitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                    myBitmapCallback.callbackBitmapIsLoad(sBitmap);
 
                 } catch (OutOfMemoryError e) {
                     Log.e("GetImagesonResponse", e.toString());

@@ -41,8 +41,6 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
         getLoaderManager().initLoader(0, null, this);
     }
 
-
-
     public void createListViewAsync(View view)  {
         String[] from = new String[]{DBHelper.COLUMN_NAME};
         int[] to = new int[]{R.id.text_Item_Name};
@@ -60,7 +58,6 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
                 sImage = mDB.readItem(position);
                 FullViewFragment.sBitmap = null;
                 createFragmentFullCard();
-               // Log.e("TAG", "onItemClick: ");
             }
         });
     }

@@ -27,7 +27,6 @@ public class GetJSON {
             @Override
             public void onResponse(Call<List<Images>> call, Response<List<Images>> response) {
                 Log.e("getJSONList","getJSONList = " + response.headers()+"\n" + response.message());
-                Log.e("getJSONList","JSONList = " + response.body().get(0).getDescription());
                 saveResponseToDB(response.body());
               }
 
@@ -43,10 +42,11 @@ public class GetJSON {
         DB db = new DB(mContext);
         db.open();
         db.dbTrunc();
+
         for (Images item : images) {
             db.append(item);
-            //Log.e("TAG", "saveResponseToDB: "+ items.toString());
         }
+
         db.close();
     }
 }
