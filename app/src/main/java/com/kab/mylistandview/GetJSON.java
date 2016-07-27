@@ -47,5 +47,6 @@ public class GetJSON {
             db.append(item);
             //Log.e("TAG", "saveResponseToDB: "+ items.toString());
         }
+        db.close();
     }
 }

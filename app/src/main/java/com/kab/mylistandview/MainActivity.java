@@ -25,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
         mFragList = new ListFragment();
 
         if (savedInstanceState == null) {
-            createFragmentList();
+        createFragmentList();
+        } else {
+            if (Utils.isTablet(getApplicationContext())&&Utils.getLandscapeOrientation(getApplicationContext())) {
+                createFragmentList();
+            }
         }
 
 

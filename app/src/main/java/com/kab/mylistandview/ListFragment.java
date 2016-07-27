@@ -41,6 +41,8 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
         getLoaderManager().initLoader(0, null, this);
     }
 
+
+
     public void createListViewAsync(View view)  {
         String[] from = new String[]{DBHelper.COLUMN_NAME};
         int[] to = new int[]{R.id.text_Item_Name};
@@ -105,7 +107,7 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
 
     @Override
     public void onDestroyView() {
-      //  mDB.close();
+        //mDB.close();
         Log.e("TA", "!!!!nDestroyView: !!!!!!" );
         super.onDestroyView();
     }

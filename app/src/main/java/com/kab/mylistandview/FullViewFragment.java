@@ -20,7 +20,6 @@ import android.widget.TextView;
  */
 public class FullViewFragment extends Fragment implements MyBitmapCallback {
     private ImageView mImageBackground;
-    private DB mDB;
     private static final int MAX_LINE_COUNT = 5;
     private ImageView mImageLike;
     private TextView mTextFullDescription;
@@ -32,9 +31,6 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         View view = inflater.inflate(R.layout.fragment_full_view, null);
 
         sImage = ListFragment.sImage;
-        mDB = new DB(getActivity().getApplicationContext());
-        mDB.open();
-
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         Button btnExpand = (Button) view.findViewById(R.id.btnExpand);
@@ -49,6 +45,7 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         TextView textNameAuthor = (TextView) view.findViewById(R.id.text_Name_Author);
         TextView textDate = (TextView) view.findViewById(R.id.text_Date);
         TextView textNumberLikes = (TextView) view.findViewById(R.id.text_Number_Likes);
+
         mTextFullDescription = (TextView) view.findViewById(R.id.text_Full_Description);
         mTextFullDescription.setMaxLines(MAX_LINE_COUNT);
         mTextFullDescription.setEllipsize(TextUtils.TruncateAt.END);
@@ -85,20 +82,26 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         return view;
     }
 
-    public void updateLikeInImage(){
-        if (sImage.getMyLike()==0){
-            sImage.setMyLike(1);
-            mDB.update(sImage.getMyLike(), sImage.getId());
-        } else {
-            sImage.setMyLike(0);
-            mDB.update(sImage.getMyLike(), sImage.getId());
-        }
-    }
 
     public void getImagesFromUrl(){
         GetImage getImage = new GetImage();
         getImage.getImages(sImage.getUrl(), this);
     }
+
+
+        public void updateLikeInImage(){
+            DB db = new DB(getActivity().getApplicationContext());
+            db.open();
+            if (sImage.getMyLike()==0){
+                sImage.setMyLike(1);
+                db.update(sImage.getMyLike(), sImage.getId());
+            } else {
+                sImage.setMyLike(0);
+                db.update(sImage.getMyLike(), sImage.getId());
+            }
+            db.close();
+        }
+
 
 
     private void collapseExpandTextView(TextView tv) {
@@ -134,11 +137,8 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
     @Override
     public void onDestroyView() {
         Log.e("TA", "onDestroyView: " );
-        //sBitmap=null;
-        mDB.close();
         super.onDestroyView();
     }
-
 
 
     @Override
