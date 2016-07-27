@@ -18,4 +18,6 @@ public class Utils {
     public static boolean getLandscapeOrientation(Context context) {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
+
+
 }

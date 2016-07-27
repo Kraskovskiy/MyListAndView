@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,9 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 sImage = mDB.readItem(position);
+                FullViewFragment.mBitmap = null;
                 createFragmentFullCard();
+               // Log.e("TAG", "onItemClick: ");
             }
         });
     }
@@ -78,9 +81,15 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
         } else {
             if (Utils.getLandscapeOrientation(getActivity().getApplicationContext())) {
                 mFTrans = getFragmentManager().beginTransaction();
+                mFTrans.remove(mFragFullView);
+                mFTrans.addToBackStack(null);
+                mFTrans.commit();
+
+                mFTrans = getFragmentManager().beginTransaction();
                 mFTrans.replace(R.id.frameLayout2, mFragFullView, "MY_FRAGMENT_FULL");
                 mFTrans.addToBackStack(null);
                 mFTrans.commit();
+                //Log.e("TAG", "createFragmentFullCard: " );
             } else {
                 mFTrans = getFragmentManager().beginTransaction();
                 mFTrans.replace(R.id.frameLayout1, mFragFullView, "MY_FRAGMENT_FULL");
@@ -88,6 +97,19 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
                 mFTrans.commit();
             }
         }
+    }
+
+    @Override
+    public void onDetach() {
+        Log.e("TA", "!!!!onDetach: !!!!!" );
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroyView() {
+      //  mDB.close();
+        Log.e("TA", "!!!!nDestroyView: !!!!!!" );
+        super.onDestroyView();
     }
 
     @Override

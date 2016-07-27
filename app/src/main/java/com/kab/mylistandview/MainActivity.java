@@ -51,9 +51,22 @@ public class MainActivity extends AppCompatActivity {
         mFTrans.commit();
     }
 
+    public void reloadFragment(){
+        if (fragmentAlive()==1) {
+            GetJSON getJSON = new GetJSON(getApplicationContext());
+            getJSON.getJSONList();
+        } else {
+
+        }
+    }
+
     public int fragmentAlive() {
         Fragment myFragment1 = getFragmentManager().findFragmentByTag("MY_FRAGMENT_LIST");
         Fragment myFragment2 = getFragmentManager().findFragmentByTag("MY_FRAGMENT_FULL");
+
+        if ((myFragment1 != null && myFragment1.isVisible()) && (myFragment2 != null && myFragment2.isVisible())) {
+            return 3;
+        }
 
         if (myFragment1 != null && myFragment1.isVisible()) {
             return 1;
@@ -62,10 +75,17 @@ public class MainActivity extends AppCompatActivity {
             return 2;
         }
 
-        if ((myFragment1 != null && myFragment1.isVisible()) && (myFragment2 != null && myFragment2.isVisible())) {
-            return 3;
-        }
+
         return 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragmentAlive() == 3 || fragmentAlive() == 1) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void landscapeMode() {

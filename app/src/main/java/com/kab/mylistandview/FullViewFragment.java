@@ -22,10 +22,10 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
     private ImageView mImageBackground;
     private DB mDB;
     private static final int MAX_LINE_COUNT = 5;
-    private Images mImage;
+    private static Images mImage;
     private ImageView mImageLike;
     private TextView mTextFullDescription;
-    private Bitmap mBitmap;
+    public static Bitmap mBitmap;
     private ProgressBar mProgressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,7 +117,15 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
     }
 
     @Override
+    public void onDetach() {
+        Log.e("TA", "onDetach: " );
+        super.onDetach();
+    }
+
+    @Override
     public void onDestroyView() {
+        Log.e("TA", "onDestroyView: " );
+        //mBitmap=null;
         mDB.close();
         super.onDestroyView();
     }
