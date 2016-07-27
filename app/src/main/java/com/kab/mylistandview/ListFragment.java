@@ -53,13 +53,6 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
         mListViewChat.setAdapter(mCustomCursorListAdapter);
         mListViewChat.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
 
-        mListViewChat.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mListViewChat.setSelection(mListViewChat.getCount());
-            }
-        }, 500);
-
         mListViewChat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -101,14 +94,11 @@ public class ListFragment extends Fragment  implements LoaderManager.LoaderCallb
 
     @Override
     public void onDetach() {
-        Log.e("TA", "!!!!onDetach: !!!!!" );
         super.onDetach();
     }
 
     @Override
     public void onDestroyView() {
-        //mDB.close();
-        Log.e("TA", "!!!!nDestroyView: !!!!!!" );
         super.onDestroyView();
     }
 

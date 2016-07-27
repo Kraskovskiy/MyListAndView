@@ -130,13 +130,11 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
 
     @Override
     public void onDetach() {
-        Log.e("TA", "onDetach: " );
         super.onDetach();
     }
 
     @Override
     public void onDestroyView() {
-        Log.e("TA", "onDestroyView: " );
         super.onDestroyView();
     }
 
