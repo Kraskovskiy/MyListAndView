@@ -32,7 +32,7 @@ public class DB {
     }
 
     public Images readItem(int id) {
-        Cursor cursor = mDB.query(DBHelper.TABLE_NAME, null, DBHelper.COLUMN_ID+" = "+id, null, null, null, null);
+        Cursor cursor = mDB.query(DBHelper.TABLE_NAME, null, DBHelper.COLUMN_ID + " = " + id, null, null, null, null);
         if (cursor.moveToFirst()) {
             int itemMylike_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
             int itemDescription_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_DESCRIPTION);
@@ -43,13 +43,19 @@ public class DB {
             int itemNumberLikes = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_NUMBER_OF_LIKES);
             int itemUrl_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_URL);
 
-       return new Images(cursor.getInt(itemID_index),cursor.getString(itemName_index),
-                cursor.getString(itemUrl_index),cursor.getInt(itemNumberLikes),
-                cursor.getString(itemAuthor_index),cursor.getString(itemDate_index),
-                cursor.getString(itemDescription_index),cursor.getInt(itemMylike_index));
+            Images image = new Images(cursor.getInt(itemID_index), cursor.getString(itemName_index),
+                    cursor.getString(itemUrl_index), cursor.getInt(itemNumberLikes),
+                    cursor.getString(itemAuthor_index), cursor.getString(itemDate_index),
+                    cursor.getString(itemDescription_index), cursor.getInt(itemMylike_index));
+
+            cursor.close();
+
+            return image;
         } else {
+            cursor.close();
             return null;
         }
+
     }
 
     public void append(Images images) {
