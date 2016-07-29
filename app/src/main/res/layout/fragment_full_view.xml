@@ -8,27 +8,27 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:id="@+id/frameLayout"
-        android:layout_above="@+id/linearLayout">
+        android:id="@+id/frame_layout"
+        android:layout_above="@+id/linear_layout">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imageBackground"
+            android:id="@+id/image_background"
             android:layout_gravity="top|left|bottom|right" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
+            android:id="@+id/progress_bar"
             android:layout_gravity="center"
             android:visibility="visible" />
 
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:id="@+id/imageLike"
+            android:id="@+id/image_like"
             android:layout_gravity="center"
             android:src="@drawable/like_grey"
             android:visibility="invisible" />
@@ -38,17 +38,17 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/text_Date"
+        android:layout_toEndOf="@+id/text_date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout"
-        android:layout_above="@+id/linearLayout2">
+        android:id="@+id/linear_layout"
+        android:layout_above="@+id/linear_layout2">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:id="@+id/text_Title"
+            android:text="@string/fragment_title"
+            android:id="@+id/text_title"
             android:textSize="17sp"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -59,14 +59,14 @@
         <ImageView
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:id="@+id/imageView"
+            android:id="@+id/image_view"
             android:src="@color/colorPrimaryDark" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/name_author"
-            android:id="@+id/text_Name_Author"
+            android:text="@string/fragment_name_author"
+            android:id="@+id/text_name_author"
             android:textSize="17sp"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -81,14 +81,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout2"
-        android:layout_above="@+id/imageView3">
+        android:id="@+id/linear_layout2"
+        android:layout_above="@+id/image_view3">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/date"
-            android:id="@+id/text_Date"
+            android:text="@string/fragment_date"
+            android:id="@+id/text_date"
             android:textSize="17sp"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -99,14 +99,14 @@
         <ImageView
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:id="@+id/imageView2"
+            android:id="@+id/image_view2"
             android:src="@color/colorPrimaryDark" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/number_of_likes"
-            android:id="@+id/text_Number_Likes"
+            android:text="@string/fragment_number_of_likes"
+            android:id="@+id/text_number_likes"
             android:textSize="17sp"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -118,26 +118,26 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/imageView3"
+        android:id="@+id/image_view3"
         android:src="@color/colorPrimaryDark"
-        android:layout_above="@+id/text_Full_Description" />
+        android:layout_above="@+id/text_full_description" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/full_description"
-        android:id="@+id/text_Full_Description"
+        android:text="@string/fragment_full_description"
+        android:id="@+id/text_full_description"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/btnExpand" />
+        android:layout_above="@+id/button_expand" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/expand"
-        android:id="@+id/btnExpand"
+        android:text="@string/fragment_expand"
+        android:id="@+id/button_expand"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

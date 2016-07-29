@@ -19,21 +19,22 @@ import android.widget.TextView;
  * Created by Kraskovskiy on 26.07.2016.
  */
 public class FullViewFragment extends Fragment implements MyBitmapCallback {
-    private ImageView mImageBackground;
+    public static Bitmap sBitmap;
+    public static Images sImage;
     private static final int MAX_LINE_COUNT = 5;
+    private ImageView mImageBackground;
     private ImageView mImageLike;
     private TextView mTextFullDescription;
     private ProgressBar mProgressBar;
-    public static Bitmap sBitmap;
-    public static Images sImage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_full_view, null);
 
         sImage = ListFragment.sImage;
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
 
-        Button btnExpand = (Button) view.findViewById(R.id.btnExpand);
+        Button btnExpand = (Button) view.findViewById(R.id.button_expand);
         btnExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,17 +42,17 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
             }
         });
 
-        TextView textTitle = (TextView) view.findViewById(R.id.text_Title);
-        TextView textNameAuthor = (TextView) view.findViewById(R.id.text_Name_Author);
-        TextView textDate = (TextView) view.findViewById(R.id.text_Date);
-        TextView textNumberLikes = (TextView) view.findViewById(R.id.text_Number_Likes);
+        TextView textTitle = (TextView) view.findViewById(R.id.text_title);
+        TextView textNameAuthor = (TextView) view.findViewById(R.id.text_name_author);
+        TextView textDate = (TextView) view.findViewById(R.id.text_date);
+        TextView textNumberLikes = (TextView) view.findViewById(R.id.text_number_likes);
 
-        mTextFullDescription = (TextView) view.findViewById(R.id.text_Full_Description);
+        mTextFullDescription = (TextView) view.findViewById(R.id.text_full_description);
         mTextFullDescription.setMaxLines(MAX_LINE_COUNT);
         mTextFullDescription.setEllipsize(TextUtils.TruncateAt.END);
 
-        mImageBackground = (ImageView) view.findViewById(R.id.imageBackground);
-        mImageLike = (ImageView) view.findViewById(R.id.imageLike);
+        mImageBackground = (ImageView) view.findViewById(R.id.image_background);
+        mImageLike = (ImageView) view.findViewById(R.id.image_like);
         mImageLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,11 +62,11 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         });
 
         if (sImage !=null) {
-            textTitle.setText(String.format(getResources().getString(R.string.title), sImage.getName()));
-            textNameAuthor.setText(String.format(getResources().getString(R.string.name_author), sImage.getAuthor()));
-            textDate.setText(String.format(getResources().getString(R.string.date), sImage.getDate()));
-            textNumberLikes.setText(String.format(getResources().getString(R.string.number_of_likes), sImage.getNumberLike()));
-            mTextFullDescription.setText(String.format(getResources().getString(R.string.full_description), sImage.getDescription()));
+            textTitle.setText(String.format(getResources().getString(R.string.fragment_title), sImage.getName()));
+            textNameAuthor.setText(String.format(getResources().getString(R.string.fragment_name_author), sImage.getAuthor()));
+            textDate.setText(String.format(getResources().getString(R.string.fragment_date), sImage.getDate()));
+            textNumberLikes.setText(String.format(getResources().getString(R.string.fragment_number_of_likes), sImage.getNumberLike()));
+            mTextFullDescription.setText(String.format(getResources().getString(R.string.fragment_full_description), sImage.getDescription()));
         }
 
         if (sBitmap == null) {
@@ -82,27 +83,54 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         return view;
     }
 
-
-    public void getImagesFromUrl(){
-        GetImage getImage = new GetImage();
-        getImage.getImages(sImage.getUrl(), this);
+    public void getImagesFromUrl() {
+        ImageDownloader imageDownloader = new ImageDownloader();
+        imageDownloader.getImages(sImage.getUrl(), this);
     }
 
+    public void updateLikeInImage() {
+        DB db = new DB(getActivity().getApplicationContext());
+        db.open();
+        if (sImage.getMyLike() == 0) {
+            sImage.setMyLike(1);
+            db.update(sImage.getMyLike(), sImage.getId());
+        } else {
+            sImage.setMyLike(0);
+            db.update(sImage.getMyLike(), sImage.getId());
+        }
+        db.close();
+    }
 
-        public void updateLikeInImage(){
-            DB db = new DB(getActivity().getApplicationContext());
-            db.open();
-            if (sImage.getMyLike()==0){
-                sImage.setMyLike(1);
-                db.update(sImage.getMyLike(), sImage.getId());
-            } else {
-                sImage.setMyLike(0);
-                db.update(sImage.getMyLike(), sImage.getId());
-            }
-            db.close();
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void callbackBitmapIsLoad(final Bitmap bitmap) {
+        Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!");
+        sBitmap = bitmap;
+        if (getActivity() != null) {
+
+            Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
+            myHandler.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    mImageBackground.setImageBitmap(bitmap);
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    mImageLike.setVisibility(View.VISIBLE);
+                    setLikeImage();
+                }
+            });
         }
 
-
+    }
 
     private void collapseExpandTextView(TextView tv) {
 
@@ -126,38 +154,6 @@ public class FullViewFragment extends Fragment implements MyBitmapCallback {
         } else {
             mImageLike.setImageResource(R.drawable.like_orange);
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-
-    @Override
-    public void callbackBitmapIsLoad(final Bitmap bitmap) {
-        Log.e("TAG", "callbackBitmapIsLoad: " + "DONE!");
-        sBitmap = bitmap;
-        if (getActivity() != null) {
-
-            Handler myHandler = new Handler(getActivity().getApplicationContext().getMainLooper());
-            myHandler.post(new Runnable() {
-
-                @Override
-                public void run() {
-                    mImageBackground.setImageBitmap(bitmap);
-                    mProgressBar.setVisibility(View.INVISIBLE);
-                    mImageLike.setVisibility(View.VISIBLE);
-                    setLikeImage();
-                }
-            });
-        }
-
     }
 }
 

@@ -12,17 +12,17 @@ import retrofit2.Response;
 /**
  * Created by Kraskovskiy on 26.07.2016.
  */
-public class GetJSON {
-    private MyJSONService myJSONService;
+public class JsonDownloader {
+    private MyJsonService mJsonService;
     private Context mContext;
 
-    public GetJSON(Context context) {
-        myJSONService = ServiceConnector.createService();
+    public JsonDownloader(Context context) {
+        mJsonService = ServiceConnector.createService();
         mContext = context;
     }
 
     public void getJSONList() {
-        Call<List<Images>> call = myJSONService.listImages();
+        Call<List<Images>> call = mJsonService.listImages();
         call.enqueue(new Callback<List<Images>>() {
             @Override
             public void onResponse(Call<List<Images>> call, Response<List<Images>> response) {

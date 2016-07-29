@@ -15,7 +15,7 @@ public class Utils {
         return (xlarge || large);
     }
 
-    public static boolean getLandscapeOrientation(Context context) {
+    public static boolean isLandscapeOrientation(Context context) {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 

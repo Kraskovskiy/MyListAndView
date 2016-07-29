@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">MyListAndView</string>
     <string name="action_settings">Settings</string>
-    <string name="title">Title: %s</string>
-    <string name="name_author">Name Author: %s</string>
-    <string name="date">Date: %s</string>
-    <string name="number_of_likes">Number of likes: %s</string>
-    <string name="full_description">Full description: %s</string>
-    <string name="expand">Expand</string>
+    <string name="fragment_title">Title: %s</string>
+    <string name="fragment_name_author">Name Author: %s</string>
+    <string name="fragment_date">Date: %s</string>
+    <string name="fragment_number_of_likes">Number of likes: %s</string>
+    <string name="fragment_full_description">Full description: %s</string>
+    <string name="fragment_expand">Expand</string>
 </resources>

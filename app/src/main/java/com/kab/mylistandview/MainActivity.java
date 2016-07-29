@@ -18,20 +18,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        frameLayout2 = (FrameLayout) findViewById(R.id.frameLayout2);
-        landscapeMode();
+
+        frameLayout2 = (FrameLayout) findViewById(R.id.frame_layout2);
+
+        clearLandscapeMode();
+
         mFragList = new ListFragment();
 
         if (savedInstanceState == null) {
-        createFragmentList();
+            createFragmentList();
         } else {
-            if (Utils.isTablet(getApplicationContext())&&Utils.getLandscapeOrientation(getApplicationContext())) {
+            if (Utils.isTablet(getApplicationContext()) && Utils.isLandscapeOrientation(getApplicationContext())) {
                 createFragmentList();
             }
         }
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,28 +47,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void createFragmentList() {
         mFTrans = getFragmentManager().beginTransaction();
-        mFTrans.replace(R.id.frameLayout1, mFragList, "MY_FRAGMENT_LIST");
+        mFTrans.replace(R.id.frame_layout1, mFragList, "MY_FRAGMENT_LIST");
         mFTrans.addToBackStack(null);
         mFTrans.commit();
     }
 
     public void reloadFragment() {
-        if (fragmentAlive() == 1) {
-            GetJSON getJSON = new GetJSON(getApplicationContext());
-            getJSON.getJSONList();
+        if (isFragmentAlive() == 1) {
+            JsonDownloader jsonDownloader = new JsonDownloader(getApplicationContext());
+            jsonDownloader.getJSONList();
         } else {
             if (FullViewFragment.sBitmap == null) {
                 FullViewFragment fragment = (FullViewFragment) getFragmentManager().findFragmentByTag("MY_FRAGMENT_FULL");
                 fragment.getImagesFromUrl();
             }
-            if (fragmentAlive() == 3 && !Utils.getLandscapeOrientation(getApplicationContext())) {
-                GetJSON getJSON = new GetJSON(getApplicationContext());
-                getJSON.getJSONList();
+            if (isFragmentAlive() == 3 && !Utils.isLandscapeOrientation(getApplicationContext())) {
+                JsonDownloader jsonDownloader = new JsonDownloader(getApplicationContext());
+                jsonDownloader.getJSONList();
             }
         }
     }
 
-    public int fragmentAlive() {
+    public int isFragmentAlive() {
         Fragment myFragment1 = getFragmentManager().findFragmentByTag("MY_FRAGMENT_LIST");
         Fragment myFragment2 = getFragmentManager().findFragmentByTag("MY_FRAGMENT_FULL");
 
@@ -79,22 +82,20 @@ public class MainActivity extends AppCompatActivity {
         if (myFragment1 != null && myFragment1.isVisible()) {
             return 2;
         }
-
-
         return 0;
     }
 
     @Override
     public void onBackPressed() {
-        if (fragmentAlive() == 3 || fragmentAlive() == 1) {
+        if (isFragmentAlive() == 3 || isFragmentAlive() == 1) {
             finish();
         } else {
             super.onBackPressed();
         }
     }
 
-    public void landscapeMode() {
-        if (!Utils.isTablet(getApplicationContext())||!Utils.getLandscapeOrientation(getApplicationContext())) {
+    public void clearLandscapeMode() {
+        if (!Utils.isTablet(getApplicationContext())||!Utils.isLandscapeOrientation(getApplicationContext())) {
             frameLayout2.setVisibility(View.GONE);
         }
     }

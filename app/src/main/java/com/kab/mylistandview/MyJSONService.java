@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 /**
  * Created by Kraskovskiy on 26.07.2016.
  */
-public interface MyJSONService {
+public interface MyJsonService {
     @GET("/images.json")
     Call<List<Images>> listImages();
 }

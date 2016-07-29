@@ -9,9 +9,6 @@ import android.net.Uri;
  * Created by Kraskovskiy on 26.07.2016.
  */
 public class DBHelper  extends SQLiteOpenHelper {
-
-    private static final int NUMBER_OF_VERSION_DB = 1;
-
     public static final String DATABASE_NAME = "listImages";
     public static final String TABLE_NAME = "dataTable";
     public static final String COLUMN_ID = "_id";
@@ -35,6 +32,8 @@ public class DBHelper  extends SQLiteOpenHelper {
             + COLUMN_DESCRIPTION +" text,"
             + COLUMN_MYLIKE+" text"
             +");";
+
+    private static final int NUMBER_OF_VERSION_DB = 1;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, NUMBER_OF_VERSION_DB);

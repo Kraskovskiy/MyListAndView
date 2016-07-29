@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * Created by Kraskovskiy on 26.07.2016.
@@ -12,7 +11,7 @@ import android.util.Log;
 public class DB {
     private final Context mContext;
     private DBHelper mDBHelper;
-    private SQLiteDatabase mDB;
+    private SQLiteDatabase mDb;
 
     public DB(Context context) {
         mContext = context;
@@ -20,7 +19,7 @@ public class DB {
 
     public void open() {
         mDBHelper = new DBHelper(mContext);
-        mDB = mDBHelper.getWritableDatabase();
+        mDb = mDBHelper.getWritableDatabase();
     }
 
     public void close() {
@@ -28,11 +27,12 @@ public class DB {
     }
 
     public Cursor getAllData() {
-        return mDB.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
+        return mDb.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
     }
 
     public Images readItem(int id) {
-        Cursor cursor = mDB.query(DBHelper.TABLE_NAME, null, DBHelper.COLUMN_ID + " = " + id, null, null, null, null);
+        Cursor cursor = mDb.query(DBHelper.TABLE_NAME, null, DBHelper.COLUMN_ID + " = " + id, null, null, null, null);
+
         if (cursor.moveToFirst()) {
             int itemMylike_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
             int itemDescription_index = cursor.getColumnIndexOrThrow(DBHelper.COLUMN_DESCRIPTION);
@@ -68,7 +68,7 @@ public class DB {
         cv.put(DBHelper.COLUMN_URL, images.getUrl());
         cv.put(DBHelper.COLUMN_ID, images.getId());
         cv.put(DBHelper.COLUMN_MYLIKE, "0");
-        mDB.insert(DBHelper.TABLE_NAME, null, cv);
+        mDb.insert(DBHelper.TABLE_NAME, null, cv);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
 
@@ -76,17 +76,17 @@ public class DB {
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.COLUMN_MYLIKE, values);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
-        return mDB.update(DBHelper.TABLE_NAME, cv, DBHelper.COLUMN_ID+" = "+whereClause, null);
+        return mDb.update(DBHelper.TABLE_NAME, cv, DBHelper.COLUMN_ID+" = "+whereClause, null);
     }
 
     public void delete(long id) {
-        mDB.delete(DBHelper.TABLE_NAME, DBHelper.COLUMN_ID + " = " + id, null);
+        mDb.delete(DBHelper.TABLE_NAME, DBHelper.COLUMN_ID + " = " + id, null);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
 
     public int getCount() {
         String countQuery = "SELECT  * FROM " + DBHelper.TABLE_NAME;
-        Cursor cursor = mDB.rawQuery(countQuery, null);
+        Cursor cursor = mDb.rawQuery(countQuery, null);
         int cnt = cursor.getCount();
         cursor.close();
         return cnt;
@@ -94,8 +94,8 @@ public class DB {
 
     public void dbTrunc()
     {
-        mDB.execSQL("DROP TABLE " + DBHelper.TABLE_NAME);
-        mDB.execSQL(DBHelper.DB_CREATE_STRING);
+        mDb.execSQL("DROP TABLE " + DBHelper.TABLE_NAME);
+        mDb.execSQL(DBHelper.DB_CREATE_STRING);
         mContext.getContentResolver().notifyChange(DBHelper.URI_TABLE_NAME, null);
     }
 

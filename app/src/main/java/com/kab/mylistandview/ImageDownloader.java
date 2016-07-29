@@ -1,10 +1,12 @@
 package com.kab.mylistandview;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -15,13 +17,11 @@ import okhttp3.Response;
 /**
  * Created by Kraskovskiy on 26.07.2016.
  */
-public class GetImage {
-
-   private static Bitmap sBitmap;
-   private MyBitmapCallback myBitmapCallback;
+public class ImageDownloader {
+   private MyBitmapCallback mBitmapCallback;
 
     public void getImages(String url, MyBitmapCallback callback) {
-        myBitmapCallback = callback;
+        mBitmapCallback = callback;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -36,8 +36,8 @@ public class GetImage {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    sBitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                    myBitmapCallback.callbackBitmapIsLoad(sBitmap);
+                    Bitmap bitmap = decodeBitmapFromStream(response.body().byteStream());
+                    mBitmapCallback.callbackBitmapIsLoad(bitmap);
 
                 } catch (OutOfMemoryError e) {
                     Log.e("GetImagesonResponse", e.toString());
@@ -46,4 +46,11 @@ public class GetImage {
             }
         });
     }
+
+    public Bitmap decodeBitmapFromStream(InputStream is) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        return BitmapFactory.decodeStream(is, null, options);
+    }
+
 }

@@ -8,15 +8,15 @@ import android.database.Cursor;
  * Created by Kraskovskiy on 26.07.2016.
  */
 public class MyCursorLoader extends CursorLoader {
-    private DB mDB;
+    private DB mDb;
 
     public MyCursorLoader(Context context, DB db) {
         super(context);
-        this.mDB = db;
+        this.mDb = db;
     }
 
     @Override
     public Cursor loadInBackground() {
-        return mDB.getAllData();
+        return mDb.getAllData();
     }
 }

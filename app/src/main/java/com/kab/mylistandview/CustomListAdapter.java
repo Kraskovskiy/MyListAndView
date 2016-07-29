@@ -1,16 +1,12 @@
 package com.kab.mylistandview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 /**
  * Created by Kraskovskiy on 26.07.2016.
@@ -38,7 +34,7 @@ public class CustomListAdapter extends SimpleCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         super.bindView(view, context, cursor);
 
-        ImageView imageItemlikes = (ImageView) view.findViewById(R.id.image_Item_Likes);
+        ImageView imageItemlikes = (ImageView) view.findViewById(R.id.image_item_likes);
         int imageItemlikes_index=cursor.getColumnIndexOrThrow(DBHelper.COLUMN_MYLIKE);
 
         if (cursor.getString(imageItemlikes_index).equals("0")) {
